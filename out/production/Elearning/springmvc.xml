@@ -5,18 +5,17 @@
   xmlns:mvc="http://www.springframework.org/schema/mvc"
   xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
-
-
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context-4.3.xsd
        http://www.springframework.org/schema/mvc
        http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
 
-  
 
+  <!--配置包扫描：扫描注解-->
+  <context:component-scan base-package="cn.java.controller.*,cn.java.service.impl"/>
 
-  <!--设置控制类所属包-->
-  <context:component-scan base-package="cn.java.controller.*,cn.java.exception"/>
+  <!--mvc注解驱动（4.3还要要配吗？）-->
+
 
   <!--设置静态资源可见性-->
   <mvc:annotation-driven/>
@@ -24,10 +23,21 @@
   <mvc:resources mapping="js/**" location="resources/js"/>
   <mvc:resources mapping="/*.html" location="/html/"/>
 
+  <!--视图解析器-->
   <!--设置控制方法返回字符串默认前后缀-->
   <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
     <property name="prefix" value="/pages/"/>
     <property name="suffix" value=""/>
   </bean>
 
+  <!--文件上传-->
+  <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    <!--配置默认编码-->
+    <property name="defaultEncoding" value="utf-8"> </property>
+    <!--配置文件上传的大小-->
+    <!--这里我先设置1M的大小，以后用到再改！-->
+    <property name="maxUploadSize" value="1048576"> </property>
+  </bean>
+  <!--数据校验（hibernate-validate）-->
+  <!--定时器-->
 </beans>

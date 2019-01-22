@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+<!--头文件好像还要一个aop，但是由于没用到，所以还没有加进去-->
+<!--头文件不写版本号会导致，自动匹配当前版本号的头文件-->
+
+      <!--配置数据源-->
+      <bean id="basicDataSource" class="org.apache.commons.dbcp.BasicDataSource">
+            <!--配置driverClassName、url、uesrname、password-->
+            <property name="driverClassName" value="com.mysql.jdbc.Driver"> </property>
+            <!--这里将数据库的名字改一下才行!我smartcool改成对应的数据库名称，其他不要改-->
+            <property name="url" value="jdbc:mysql:///smartcool"> </property>
+            <!--这里value改成都对应的用户名+密码-->
+            <property name="username" value="root"> </property>
+            <property name="password" value="1mysql"> </property>
+      </bean>
+      <!--配置扫描保存sql语句的局部xml文件-->
+      <bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+            <!--指定数据源-->
+            <property name="dataSource" ref="basicDataSource"> </property>
+            <!--指定局部xml文件的位置-->
+            <!--classpath代表是蓝色那种包下面的，*加不加呢？我先加着-->
+            <property name="mapperLocations" value="classpath*:mapper/*.xml"> </property>
+      </bean>
+      <!--扫描mapper接口类,并且将接口类与xml文件关联-->
+      <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+            <!--指定mapper接口类存放的位置-->
+            <property name="basePackage" value="cn.java.mapper"> </property>
+      </bean>
+</beans>
