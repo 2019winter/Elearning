@@ -16,7 +16,7 @@
 
 
   <!--设置控制类所属包-->
-  <context:component-scan base-package="cn.java.controller"/>
+  <context:component-scan base-package="cn.java.controller.*,cn.java.exception"/>
 
   <!--设置静态资源可见性-->
   <mvc:annotation-driven/>

@@ -3,4 +3,25 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+  <!--配置数据库-->
+  <bean id="dataSource"
+    class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <property name="driverClassName">
+      <value></value>
+    </property>
+    <property name="url">
+      <value>
+      </value>
+
+    </property>
+    <property name="username">
+      <value></value>
+    </property>
+    <property name="password">
+      <value></value>
+    </property>
+  </bean>
+
+
+
 </beans>
