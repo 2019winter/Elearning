@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.java.mapper.BoardcastMapper">
+  <resultMap id="BaseResultMap" type="cn.java.entity.Boardcast">
+    <id column="bid" jdbcType="INTEGER" property="bid" />
+    <result column="boardcast_date" jdbcType="DATE" property="boardcastDate" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="cn.java.entity.Boardcast">
+    <result column="boardcast_content" jdbcType="LONGVARCHAR" property="boardcastContent" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    bid, boardcast_date
+  </sql>
+  <sql id="Blob_Column_List">
+    boardcast_content
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from boardcast
+    where bid = #{bid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from boardcast
+    where bid = #{bid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="bid" keyProperty="bid" parameterType="cn.java.entity.Boardcast" useGeneratedKeys="true">
+    insert into boardcast (boardcast_date, boardcast_content)
+    values (#{boardcastDate,jdbcType=DATE}, #{boardcastContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="bid" keyProperty="bid" parameterType="cn.java.entity.Boardcast" useGeneratedKeys="true">
+    insert into boardcast
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="boardcastDate != null">
+        boardcast_date,
+      </if>
+      <if test="boardcastContent != null">
+        boardcast_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="boardcastDate != null">
+        #{boardcastDate,jdbcType=DATE},
+      </if>
+      <if test="boardcastContent != null">
+        #{boardcastContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.java.entity.Boardcast">
+    update boardcast
+    <set>
+      <if test="boardcastDate != null">
+        boardcast_date = #{boardcastDate,jdbcType=DATE},
+      </if>
+      <if test="boardcastContent != null">
+        boardcast_content = #{boardcastContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where bid = #{bid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.java.entity.Boardcast">
+    update boardcast
+    set boardcast_date = #{boardcastDate,jdbcType=DATE},
+      boardcast_content = #{boardcastContent,jdbcType=LONGVARCHAR}
+    where bid = #{bid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.java.entity.Boardcast">
+    update boardcast
+    set boardcast_date = #{boardcastDate,jdbcType=DATE}
+    where bid = #{bid,jdbcType=INTEGER}
+  </update>
+</mapper>

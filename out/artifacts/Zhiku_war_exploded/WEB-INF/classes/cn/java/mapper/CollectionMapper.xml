@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.java.mapper.CollectionMapper">
+  <resultMap id="BaseResultMap" type="cn.java.entity.Collection">
+    <id column="colid" jdbcType="INTEGER" property="colid" />
+    <result column="collection_para" jdbcType="INTEGER" property="collectionPara" />
+    <result column="collection_user" jdbcType="INTEGER" property="collectionUser" />
+    <result column="collection_date" jdbcType="DATE" property="collectionDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    colid, collection_para, collection_user, collection_date
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from collection
+    where colid = #{colid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from collection
+    where colid = #{colid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="colid" keyProperty="colid" parameterType="cn.java.entity.Collection" useGeneratedKeys="true">
+    insert into collection (collection_para, collection_user, collection_date
+      )
+    values (#{collectionPara,jdbcType=INTEGER}, #{collectionUser,jdbcType=INTEGER}, #{collectionDate,jdbcType=DATE}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="colid" keyProperty="colid" parameterType="cn.java.entity.Collection" useGeneratedKeys="true">
+    insert into collection
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="collectionPara != null">
+        collection_para,
+      </if>
+      <if test="collectionUser != null">
+        collection_user,
+      </if>
+      <if test="collectionDate != null">
+        collection_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="collectionPara != null">
+        #{collectionPara,jdbcType=INTEGER},
+      </if>
+      <if test="collectionUser != null">
+        #{collectionUser,jdbcType=INTEGER},
+      </if>
+      <if test="collectionDate != null">
+        #{collectionDate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.java.entity.Collection">
+    update collection
+    <set>
+      <if test="collectionPara != null">
+        collection_para = #{collectionPara,jdbcType=INTEGER},
+      </if>
+      <if test="collectionUser != null">
+        collection_user = #{collectionUser,jdbcType=INTEGER},
+      </if>
+      <if test="collectionDate != null">
+        collection_date = #{collectionDate,jdbcType=DATE},
+      </if>
+    </set>
+    where colid = #{colid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.java.entity.Collection">
+    update collection
+    set collection_para = #{collectionPara,jdbcType=INTEGER},
+      collection_user = #{collectionUser,jdbcType=INTEGER},
+      collection_date = #{collectionDate,jdbcType=DATE}
+    where colid = #{colid,jdbcType=INTEGER}
+  </update>
+</mapper>

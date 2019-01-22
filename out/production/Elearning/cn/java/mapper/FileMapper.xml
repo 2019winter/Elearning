@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.java.mapper.FileMapper">
+  <resultMap id="BaseResultMap" type="cn.java.entity.File">
+    <id column="fid" jdbcType="INTEGER" property="fid" />
+    <result column="file_path" jdbcType="VARCHAR" property="filePath" />
+    <result column="file_name" jdbcType="VARCHAR" property="fileName" />
+    <result column="file_course" jdbcType="INTEGER" property="fileCourse" />
+    <result column="file_teacher" jdbcType="VARCHAR" property="fileTeacher" />
+    <result column="file_type" jdbcType="VARCHAR" property="fileType" />
+    <result column="file_upper" jdbcType="VARCHAR" property="fileUpper" />
+    <result column="file_upload_time" jdbcType="DATE" property="fileUploadTime" />
+    <result column="file_download_count" jdbcType="INTEGER" property="fileDownloadCount" />
+    <result column="file_description" jdbcType="VARCHAR" property="fileDescription" />
+    <result column="file_status" jdbcType="CHAR" property="fileStatus" />
+    <result column="file_score" jdbcType="REAL" property="fileScore" />
+    <result column="file_upperid" jdbcType="INTEGER" property="fileUpperid" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="cn.java.entity.File">
+    <result column="file_sha" jdbcType="LONGVARCHAR" property="fileSha" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    fid, file_path, file_name, file_course, file_teacher, file_type, file_upper, file_upload_time, 
+    file_download_count, file_description, file_status, file_score, file_upperid
+  </sql>
+  <sql id="Blob_Column_List">
+    file_sha
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from file
+    where fid = #{fid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from file
+    where fid = #{fid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="fid" keyProperty="fid" parameterType="cn.java.entity.File" useGeneratedKeys="true">
+    insert into file (file_path, file_name, file_course, 
+      file_teacher, file_type, file_upper, 
+      file_upload_time, file_download_count, file_description, 
+      file_status, file_score, file_upperid, 
+      file_sha)
+    values (#{filePath,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR}, #{fileCourse,jdbcType=INTEGER}, 
+      #{fileTeacher,jdbcType=VARCHAR}, #{fileType,jdbcType=VARCHAR}, #{fileUpper,jdbcType=VARCHAR}, 
+      #{fileUploadTime,jdbcType=DATE}, #{fileDownloadCount,jdbcType=INTEGER}, #{fileDescription,jdbcType=VARCHAR}, 
+      #{fileStatus,jdbcType=CHAR}, #{fileScore,jdbcType=REAL}, #{fileUpperid,jdbcType=INTEGER}, 
+      #{fileSha,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="fid" keyProperty="fid" parameterType="cn.java.entity.File" useGeneratedKeys="true">
+    insert into file
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="filePath != null">
+        file_path,
+      </if>
+      <if test="fileName != null">
+        file_name,
+      </if>
+      <if test="fileCourse != null">
+        file_course,
+      </if>
+      <if test="fileTeacher != null">
+        file_teacher,
+      </if>
+      <if test="fileType != null">
+        file_type,
+      </if>
+      <if test="fileUpper != null">
+        file_upper,
+      </if>
+      <if test="fileUploadTime != null">
+        file_upload_time,
+      </if>
+      <if test="fileDownloadCount != null">
+        file_download_count,
+      </if>
+      <if test="fileDescription != null">
+        file_description,
+      </if>
+      <if test="fileStatus != null">
+        file_status,
+      </if>
+      <if test="fileScore != null">
+        file_score,
+      </if>
+      <if test="fileUpperid != null">
+        file_upperid,
+      </if>
+      <if test="fileSha != null">
+        file_sha,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="filePath != null">
+        #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null">
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileCourse != null">
+        #{fileCourse,jdbcType=INTEGER},
+      </if>
+      <if test="fileTeacher != null">
+        #{fileTeacher,jdbcType=VARCHAR},
+      </if>
+      <if test="fileType != null">
+        #{fileType,jdbcType=VARCHAR},
+      </if>
+      <if test="fileUpper != null">
+        #{fileUpper,jdbcType=VARCHAR},
+      </if>
+      <if test="fileUploadTime != null">
+        #{fileUploadTime,jdbcType=DATE},
+      </if>
+      <if test="fileDownloadCount != null">
+        #{fileDownloadCount,jdbcType=INTEGER},
+      </if>
+      <if test="fileDescription != null">
+        #{fileDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="fileStatus != null">
+        #{fileStatus,jdbcType=CHAR},
+      </if>
+      <if test="fileScore != null">
+        #{fileScore,jdbcType=REAL},
+      </if>
+      <if test="fileUpperid != null">
+        #{fileUpperid,jdbcType=INTEGER},
+      </if>
+      <if test="fileSha != null">
+        #{fileSha,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.java.entity.File">
+    update file
+    <set>
+      <if test="filePath != null">
+        file_path = #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null">
+        file_name = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileCourse != null">
+        file_course = #{fileCourse,jdbcType=INTEGER},
+      </if>
+      <if test="fileTeacher != null">
+        file_teacher = #{fileTeacher,jdbcType=VARCHAR},
+      </if>
+      <if test="fileType != null">
+        file_type = #{fileType,jdbcType=VARCHAR},
+      </if>
+      <if test="fileUpper != null">
+        file_upper = #{fileUpper,jdbcType=VARCHAR},
+      </if>
+      <if test="fileUploadTime != null">
+        file_upload_time = #{fileUploadTime,jdbcType=DATE},
+      </if>
+      <if test="fileDownloadCount != null">
+        file_download_count = #{fileDownloadCount,jdbcType=INTEGER},
+      </if>
+      <if test="fileDescription != null">
+        file_description = #{fileDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="fileStatus != null">
+        file_status = #{fileStatus,jdbcType=CHAR},
+      </if>
+      <if test="fileScore != null">
+        file_score = #{fileScore,jdbcType=REAL},
+      </if>
+      <if test="fileUpperid != null">
+        file_upperid = #{fileUpperid,jdbcType=INTEGER},
+      </if>
+      <if test="fileSha != null">
+        file_sha = #{fileSha,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where fid = #{fid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.java.entity.File">
+    update file
+    set file_path = #{filePath,jdbcType=VARCHAR},
+      file_name = #{fileName,jdbcType=VARCHAR},
+      file_course = #{fileCourse,jdbcType=INTEGER},
+      file_teacher = #{fileTeacher,jdbcType=VARCHAR},
+      file_type = #{fileType,jdbcType=VARCHAR},
+      file_upper = #{fileUpper,jdbcType=VARCHAR},
+      file_upload_time = #{fileUploadTime,jdbcType=DATE},
+      file_download_count = #{fileDownloadCount,jdbcType=INTEGER},
+      file_description = #{fileDescription,jdbcType=VARCHAR},
+      file_status = #{fileStatus,jdbcType=CHAR},
+      file_score = #{fileScore,jdbcType=REAL},
+      file_upperid = #{fileUpperid,jdbcType=INTEGER},
+      file_sha = #{fileSha,jdbcType=LONGVARCHAR}
+    where fid = #{fid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.java.entity.File">
+    update file
+    set file_path = #{filePath,jdbcType=VARCHAR},
+      file_name = #{fileName,jdbcType=VARCHAR},
+      file_course = #{fileCourse,jdbcType=INTEGER},
+      file_teacher = #{fileTeacher,jdbcType=VARCHAR},
+      file_type = #{fileType,jdbcType=VARCHAR},
+      file_upper = #{fileUpper,jdbcType=VARCHAR},
+      file_upload_time = #{fileUploadTime,jdbcType=DATE},
+      file_download_count = #{fileDownloadCount,jdbcType=INTEGER},
+      file_description = #{fileDescription,jdbcType=VARCHAR},
+      file_status = #{fileStatus,jdbcType=CHAR},
+      file_score = #{fileScore,jdbcType=REAL},
+      file_upperid = #{fileUpperid,jdbcType=INTEGER}
+    where fid = #{fid,jdbcType=INTEGER}
+  </update>
+</mapper>
