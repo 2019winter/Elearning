@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
  */
 // 配置全局异常处理
 @ControllerAdvice
-public class Global {
+public class GlobalException {
   @ExceptionHandler(Exception.class)
   public String globalHandler(Exception e){
     e.printStackTrace();//打印错误信息
