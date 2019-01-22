@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.java.mapper.CourseMapper">
+  <resultMap id="BaseResultMap" type="cn.java.entity.Course">
+    <id column="cid" jdbcType="INTEGER" property="cid" />
+    <result column="course_name" jdbcType="VARCHAR" property="courseName" />
+    <result column="course_desc" jdbcType="VARCHAR" property="courseDesc" />
+    <result column="course_icon" jdbcType="VARCHAR" property="courseIcon" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    cid, course_name, course_desc, course_icon
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from course
+    where cid = #{cid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from course
+    where cid = #{cid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="cid" keyProperty="cid" parameterType="cn.java.entity.Course" useGeneratedKeys="true">
+    insert into course (course_name, course_desc, course_icon
+      )
+    values (#{courseName,jdbcType=VARCHAR}, #{courseDesc,jdbcType=VARCHAR}, #{courseIcon,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="cid" keyProperty="cid" parameterType="cn.java.entity.Course" useGeneratedKeys="true">
+    insert into course
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="courseName != null">
+        course_name,
+      </if>
+      <if test="courseDesc != null">
+        course_desc,
+      </if>
+      <if test="courseIcon != null">
+        course_icon,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="courseName != null">
+        #{courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="courseDesc != null">
+        #{courseDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="courseIcon != null">
+        #{courseIcon,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.java.entity.Course">
+    update course
+    <set>
+      <if test="courseName != null">
+        course_name = #{courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="courseDesc != null">
+        course_desc = #{courseDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="courseIcon != null">
+        course_icon = #{courseIcon,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where cid = #{cid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.java.entity.Course">
+    update course
+    set course_name = #{courseName,jdbcType=VARCHAR},
+      course_desc = #{courseDesc,jdbcType=VARCHAR},
+      course_icon = #{courseIcon,jdbcType=VARCHAR}
+    where cid = #{cid,jdbcType=INTEGER}
+  </update>
+</mapper>

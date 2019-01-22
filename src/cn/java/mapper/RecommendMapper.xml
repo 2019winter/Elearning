@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.java.mapper.RecommendMapper">
+  <resultMap id="BaseResultMap" type="cn.java.entity.Recommend">
+    <id column="rid" jdbcType="INTEGER" property="rid" />
+    <result column="recommend_path" jdbcType="VARCHAR" property="recommendPath" />
+    <result column="recommend_section" jdbcType="INTEGER" property="recommendSection" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    rid, recommend_path, recommend_section
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from recommend
+    where rid = #{rid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from recommend
+    where rid = #{rid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="rid" keyProperty="rid" parameterType="cn.java.entity.Recommend" useGeneratedKeys="true">
+    insert into recommend (recommend_path, recommend_section)
+    values (#{recommendPath,jdbcType=VARCHAR}, #{recommendSection,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" keyColumn="rid" keyProperty="rid" parameterType="cn.java.entity.Recommend" useGeneratedKeys="true">
+    insert into recommend
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="recommendPath != null">
+        recommend_path,
+      </if>
+      <if test="recommendSection != null">
+        recommend_section,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="recommendPath != null">
+        #{recommendPath,jdbcType=VARCHAR},
+      </if>
+      <if test="recommendSection != null">
+        #{recommendSection,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.java.entity.Recommend">
+    update recommend
+    <set>
+      <if test="recommendPath != null">
+        recommend_path = #{recommendPath,jdbcType=VARCHAR},
+      </if>
+      <if test="recommendSection != null">
+        recommend_section = #{recommendSection,jdbcType=INTEGER},
+      </if>
+    </set>
+    where rid = #{rid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.java.entity.Recommend">
+    update recommend
+    set recommend_path = #{recommendPath,jdbcType=VARCHAR},
+      recommend_section = #{recommendSection,jdbcType=INTEGER}
+    where rid = #{rid,jdbcType=INTEGER}
+  </update>
+</mapper>

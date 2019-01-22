@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.java.mapper.ActionMapper">
+  <resultMap id="BaseResultMap" type="cn.java.entity.Action">
+    <id column="aid" jdbcType="INTEGER" property="aid" />
+    <result column="action_user" jdbcType="INTEGER" property="actionUser" />
+    <result column="action_date" jdbcType="DATE" property="actionDate" />
+    <result column="action_type" jdbcType="INTEGER" property="actionType" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="cn.java.entity.Action">
+    <result column="action_item" jdbcType="LONGVARCHAR" property="actionItem" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    aid, action_user, action_date, action_type
+  </sql>
+  <sql id="Blob_Column_List">
+    action_item
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from action
+    where aid = #{aid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from action
+    where aid = #{aid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="aid" keyProperty="aid" parameterType="cn.java.entity.Action" useGeneratedKeys="true">
+    insert into action (action_user, action_date, action_type, 
+      action_item)
+    values (#{actionUser,jdbcType=INTEGER}, #{actionDate,jdbcType=DATE}, #{actionType,jdbcType=INTEGER}, 
+      #{actionItem,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="aid" keyProperty="aid" parameterType="cn.java.entity.Action" useGeneratedKeys="true">
+    insert into action
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="actionUser != null">
+        action_user,
+      </if>
+      <if test="actionDate != null">
+        action_date,
+      </if>
+      <if test="actionType != null">
+        action_type,
+      </if>
+      <if test="actionItem != null">
+        action_item,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="actionUser != null">
+        #{actionUser,jdbcType=INTEGER},
+      </if>
+      <if test="actionDate != null">
+        #{actionDate,jdbcType=DATE},
+      </if>
+      <if test="actionType != null">
+        #{actionType,jdbcType=INTEGER},
+      </if>
+      <if test="actionItem != null">
+        #{actionItem,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.java.entity.Action">
+    update action
+    <set>
+      <if test="actionUser != null">
+        action_user = #{actionUser,jdbcType=INTEGER},
+      </if>
+      <if test="actionDate != null">
+        action_date = #{actionDate,jdbcType=DATE},
+      </if>
+      <if test="actionType != null">
+        action_type = #{actionType,jdbcType=INTEGER},
+      </if>
+      <if test="actionItem != null">
+        action_item = #{actionItem,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where aid = #{aid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.java.entity.Action">
+    update action
+    set action_user = #{actionUser,jdbcType=INTEGER},
+      action_date = #{actionDate,jdbcType=DATE},
+      action_type = #{actionType,jdbcType=INTEGER},
+      action_item = #{actionItem,jdbcType=LONGVARCHAR}
+    where aid = #{aid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.java.entity.Action">
+    update action
+    set action_user = #{actionUser,jdbcType=INTEGER},
+      action_date = #{actionDate,jdbcType=DATE},
+      action_type = #{actionType,jdbcType=INTEGER}
+    where aid = #{aid,jdbcType=INTEGER}
+  </update>
+</mapper>
