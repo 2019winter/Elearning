@@ -47,15 +47,15 @@ interceptors: src/cn/java/interceptors
 
 <h2>使用时需要手动修改的地方：</h2>
 <p></p>
-resource/applicationContext.xml
-<p></p>
-配置数据源：
+resource/jdbc.properties
 <p></p>
 1.将smartcool改成自己的数据库的名称
 <p></p>
 2.将root改成自己的超级用户名称
 <p></p>
 3.将1mysql改成自己的登录密码
+<p></p>
+4.如果你的url不是localhost:3306就把这个改成你自己的
 <p></p>
 
 <h2>可能需要改的地方</h2>

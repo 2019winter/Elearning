@@ -34,8 +34,9 @@ public class TestController {
   }
 
   //把Course变成json
-  @ResponseBody
+
   @RequestMapping(value = "get_course")
+  @ResponseBody
   public Course getCourseById(Integer id){
     return ps.selectByPrimaryKey(id);
 
