@@ -1,4 +1,4 @@
-<h2>欢迎来到智库初始工程
+<h2>欢迎来到智库初始工程</h2>
 <p></p>
 jdk版本：jdk1.8
 <p></p>
@@ -45,7 +45,7 @@ interceptors: src/cn/java/interceptors
 其他尚待补充!
 <p></p>
 
-<h2>使用时需要手动修改的地方：
+<h2>使用时需要手动修改的地方：</h2>
 <p></p>
 resource/applicationContext.xml
 <p></p>
@@ -58,7 +58,7 @@ resource/applicationContext.xml
 3.将1mysql改成自己的登录密码
 <p></p>
 
-<h2>可能需要改的地方
+<h2>可能需要改的地方</h2>
 <p></p>
 resource/springmvc.xml
 <p></p>
