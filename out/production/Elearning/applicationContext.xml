@@ -10,15 +10,21 @@
 <!--头文件好像还要一个aop，但是由于没用到，所以还没有加进去-->
 <!--头文件不写版本号会导致，自动匹配当前版本号的头文件-->
 
+      <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+            <property name="locations" value="classpath:jdbc.properties"/>
+      </bean>
+
       <!--配置数据源-->
       <bean id="basicDataSource" class="org.apache.commons.dbcp.BasicDataSource">
             <!--配置driverClassName、url、uesrname、password-->
-            <property name="driverClassName" value="com.mysql.jdbc.Driver"> </property>
+            <property name="driverClassName" value="${jdbc.driverClassName}"> </property>
             <!--这里将数据库的名字改一下才行!我smartcool改成对应的数据库名称，其他不要改-->
-            <property name="url" value="jdbc:mysql:///smartcool"> </property>
+            <property name="url" value="${jdbc.url}"> </property>
             <!--这里value改成都对应的用户名+密码-->
-            <property name="username" value="root"> </property>
-            <property name="password" value="1mysql"> </property>
+            <property name="username" value="${jdbc.username}"> </property>
+            <property name="password" value="${jdbc.password}"> </property>
+            <property name="maxActive" value="30"> </property>
+            <property name="maxIdle" value="5"> </property>
       </bean>
       <!--配置扫描保存sql语句的局部xml文件-->
       <bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">

@@ -10,12 +10,21 @@
   <sql id="Base_Column_List">
     cid, course_name, course_desc, course_icon
   </sql>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from course
     where cid = #{cid,jdbcType=INTEGER}
   </select>
+
+  <!--<select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">-->
+    <!--select-->
+    <!--cid, course_name, course_desc, course_icon-->
+    <!--from course-->
+    <!--where cid = 1-->
+  <!--</select>-->
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from course
     where cid = #{cid,jdbcType=INTEGER}
