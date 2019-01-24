@@ -11,7 +11,9 @@
     <title>统一异常处理</title>
 </head>
 <body>
+
 <h1>哈哈！恭喜你出错了！</h1>
 <h1>ps：不能处理404错误</h1>
+<h1>${ErrorInformation}</h1>
 </body>
 </html>
