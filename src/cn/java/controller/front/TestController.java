@@ -33,8 +33,8 @@ public class TestController {
     // 测试通过
   }
 
+  //测试从数据库里查数据
   //把Course变成json
-
   @RequestMapping(value = "get_course")
   @ResponseBody
   public Course getCourseById(Integer id){
